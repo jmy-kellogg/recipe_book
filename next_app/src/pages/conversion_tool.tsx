@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import water from "../app/conversions/water.json";
+import flour from "../app/conversions/water.json";
 import "../styles/globals.css";
 
 export default function ConversionTool() {
@@ -23,144 +25,25 @@ export default function ConversionTool() {
     "liter",
   ];
 
-  const conversionChart: { [key: string]: { [key: string]: number } } = {
-    cup: {
-      cup: 1,
-      tablespoon: 16,
-      teaspoon: 48,
-      ounce: 8,
-      pound: 0.5,
-      fluid_ounce: 8,
-      gram: 236.588,
-      kilogram: 0.236588,
-      milliliter: 236.588,
-      liter: 0.236588,
-    },
-    tablespoon: {
-      cup: 0.0625,
-      tablespoon: 1,
-      teaspoon: 3,
-      ounce: 0.5,
-      pound: 0.03125,
-      fluid_ounce: 0.5,
-      gram: 14.7868,
-      kilogram: 0.0147868,
-      milliliter: 14.7868,
-      liter: 0.0147868,
-    },
-    teaspoon: {
-      cup: 0.0208333,
-      tablespoon: 0.333333,
-      teaspoon: 1,
-      ounce: 0.166667,
-      pound: 0.0104167,
-      gram: 4.92892,
-      kilogram: 0.00492892,
-      milliliter: 4.92892,
-      liter: 0.00492892,
-    },
-    ounce: {
-      cup: 0.125,
-      tablespoon: 2,
-      teaspoon: 6,
-      ounce: 1,
-      pound: 0.0625,
-      gram: 28.3495,
-      kilogram: 0.0283495,
-      milliliter: 28.3495,
-      liter: 0.0283495,
-    },
-    pound: {
-      cup: 2,
-      tablespoon: 32,
-      teaspoon: 96,
-      ounce: 16,
-      pound: 1,
-      gram: 453.592,
-      kilogram: 0.453592,
-      milliliter: 453.592,
-      liter: 0.453592,
-    },
-    fluid_ounce: {
-      cup: 0.125,
-      tablespoon: 2,
-      teaspoon: 6,
-      ounce: 1,
-      pound: 0.0625,
-      gram: 29.5735,
-      kilogram: 0.0295735,
-      milliliter: 29.5735,
-      liter: 0.0295735,
-    },
-    gram: {
-      cup: 0.00422675,
-      tablespoon: 0.067628,
-      teaspoon: 0.202884,
-      ounce: 0.03527396,
-      pound: 0.00220462,
-      fluid_ounce: 0.033814,
-      gram: 1,
-      kilogram: 0.001,
-      milliliter: 1,
-      liter: 0.001,
-    },
-    kilogram: {
-      cup: 4.22675,
-      tablespoon: 67.628,
-      teaspoon: 202.884,
-      ounce: 35.27396,
-      pound: 2.20462,
-      fluid_ounce: 33.814,
-      gram: 1000,
-      kilogram: 1,
-      milliliter: 1000,
-      liter: 1,
-    },
-    milliliter: {
-      cup: 0.00422675,
-      tablespoon: 0.067628,
-      teaspoon: 0.202884,
-      ounce: 0.03527396,
-      pound: 0.00220462,
-      fluid_ounce: 0.033814,
-      gram: 1,
-      kilogram: 0.001,
-      milliliter: 1,
-      liter: 0.001,
-    },
-    liter: {
-      cup: 4.22675,
-      tablespoon: 67.628,
-      teaspoon: 202.884,
-      ounce: 35.27396,
-      pound: 2.20462,
-      fluid_ounce: 33.814,
-      gram: 1000,
-      kilogram: 1,
-      milliliter: 1000,
-      liter: 1,
-    },
+  console.log(water);
+
+  const conversionChart: any = {
+    water: water,
+    flour: flour,
+    sugar: {},
+    butter: {},
+    milk: {},
+    salt: {},
+    pepper: {},
   };
 
   const calculateConversion = () => {
     // Convert imperial to metric
     const intFrom = parseInt(fromAmount || "0");
-    const multiplyBy = conversionChart[fromUnit][toUnit] || 0;
+    const ingredientsChart = conversionChart[ingredients] || {};
+    const multiplyBy = ingredientsChart[fromUnit]?.[toUnit] || 0;
     let intTo = intFrom * multiplyBy;
 
-    if (fromUnit === "cup") {
-      intTo = intFrom * 236.588;
-    } else if (fromUnit === "tablespoon") {
-      intTo = intFrom * 14.7868;
-    } else if (fromUnit === "teaspoon") {
-      intTo = intFrom * 4.92892;
-    } else if (fromUnit === "ounce") {
-      intTo = intFrom * 28.3495;
-    } else if (fromUnit === "pound") {
-      intTo = intFrom * 453.592;
-    } else if (fromUnit === "fluid ounce") {
-      intTo = intFrom * 29.5735;
-    }
     setToAmount(intTo.toString());
   };
 
