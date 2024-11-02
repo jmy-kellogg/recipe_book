@@ -36,7 +36,14 @@ export default function Home() {
           href="http://localhost:3000/conversion_tool"
           rel="noopener noreferrer"
         >
-          Conversions Calculator
+          Conversions Tool
+        </Link>
+        <Link
+          className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+          href="http://localhost:3000/substitution_tool"
+          rel="noopener noreferrer"
+        >
+          Substitution Toool
         </Link>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
