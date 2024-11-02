@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import water from "../app/conversions/water.json";
-import flour from "../app/conversions/water.json";
+import flour from "../app/conversions/flour.json";
 import "../styles/globals.css";
 
 export default function ConversionTool() {
-  const [ingredients, setIngredients] = useState<string>("");
+  const [ingredients, setIngredients] = useState<string>("water");
   const [fromAmount, setFromAmount] = useState<string>("");
   const [fromUnit, setFromUnit] = useState<string>("cup");
   const [toAmount, setToAmount] = useState<string>("");
@@ -25,9 +25,15 @@ export default function ConversionTool() {
     "liter",
   ];
 
-  console.log(water);
+  interface ConversionChart {
+    [key: string]: {
+      [unit: string]: {
+        [unit: string]: number;
+      };
+    };
+  }
 
-  const conversionChart: any = {
+  const conversionChart: ConversionChart = {
     water: water,
     flour: flour,
     sugar: {},
@@ -38,11 +44,10 @@ export default function ConversionTool() {
   };
 
   const calculateConversion = () => {
-    // Convert imperial to metric
     const intFrom = parseInt(fromAmount || "0");
     const ingredientsChart = conversionChart[ingredients] || {};
     const multiplyBy = ingredientsChart[fromUnit]?.[toUnit] || 0;
-    let intTo = intFrom * multiplyBy;
+    const intTo = intFrom * multiplyBy;
 
     setToAmount(intTo.toString());
   };
