@@ -1,40 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getDisplayText } from "../app/helper/displayText";
+import { useState } from "react";
+import { getDisplayText, getAmountDisplay } from "../app/helper/displayText";
+import { SelectOption } from "../app/helper/interfaces";
 import "../styles/globals.css";
 
+interface SubIngredients {
+  ingredient: string;
+  amount: number;
+  unit: string;
+}
+interface Substitution {
+  main: string;
+  ingredients: SubIngredients[];
+}
+interface SubstitutionData {
+  amount: number;
+  unit: string;
+  ingredient: string;
+  substitutions: Substitution[];
+}
+
 export default function SubstitutionTool() {
-  interface Substitution {
-    main: string;
-    ingredients: {
-      ingredient: string;
-      multiplier: number;
-      unit: string;
-    }[];
-  }
-  interface SubstitutionInfo {
-    amount: number;
-    unit: string;
-    substitutions: Substitution[];
-  }
-
-  const [ingredient, setIngredient] = useState<string>("baking_soda");
-  const [fromAmount, setFromAmount] = useState<string>("1");
-  const [fromUnit, setFromUnit] = useState<string>("teaspoon");
-  const [substitutions, setSubstitutions] = useState<Substitution[]>([]);
-
-  const substitutionList: { [key: string]: SubstitutionInfo } = {
-    baking_soda: {
+  const substitutionList: SubstitutionData[] = [
+    {
       amount: 1,
       unit: "teaspoon",
+      ingredient: "baking_soda",
       substitutions: [
         {
           main: "baking_powder",
           ingredients: [
             {
               ingredient: "baking_powder",
-              multiplier: 4,
+              amount: 4,
               unit: "teaspoon",
             },
           ],
@@ -44,33 +43,61 @@ export default function SubstitutionTool() {
           ingredients: [
             {
               ingredient: "potassium_bicarbonate",
-              multiplier: 1,
+              amount: 1,
               unit: "teaspoon",
             },
             {
               ingredient: "salt",
-              multiplier: 0.333,
+              amount: 0.333,
               unit: "teaspoon",
             },
           ],
         },
       ],
     },
+  ];
+
+  const [fromAmount, setFromAmount] = useState<string>("1");
+  const [originalIngredient, setOriginalIngredient] =
+    useState<SubstitutionData>(substitutionList[0]);
+
+  const ingredientsList: SelectOption[] = substitutionList.map(
+    ({ ingredient }) => ({
+      value: ingredient,
+      label: getDisplayText(ingredient),
+    })
+  );
+
+  const calculateSubstitution = (subIngredient: SubIngredients) => {
+    if (!fromAmount || !parseInt(fromAmount)) return "0";
+
+    const calcInputAmount = parseInt(fromAmount) / originalIngredient.amount;
+    let calcTotal = calcInputAmount * subIngredient.amount;
+    const decimal = calcTotal % 1;
+
+    if (decimal > 0.9) {
+      // round up to whole number
+      calcTotal = Math.ceil(calcTotal);
+    } else if (decimal > 0.3 && decimal < 0.4) {
+      // round to 1/3
+      calcTotal = Math.floor(calcTotal) + 0.333;
+      // round to 2/3
+    } else if (decimal > 0.6 && decimal < 0.7) {
+      calcTotal = Math.floor(calcTotal) + 0.666;
+    }
+
+    return getAmountDisplay(calcTotal);
   };
-  const ingredientsList: { value: string; label: string }[] = Object.keys(
-    substitutionList
-  ).map((ingredient) => ({
-    value: ingredient,
-    label: getDisplayText(ingredient),
-  }));
 
-  useEffect(() => {
-    const subInfo = substitutionList[ingredient] || {};
-
-    setFromUnit(subInfo.unit || "");
-    setFromAmount(subInfo.amount.toString() || "");
-    setSubstitutions(subInfo.substitutions || []);
-  }, [ingredient]);
+  const setIngredient = (ingredient: string) => {
+    const subInfo = substitutionList.find(
+      (data) => data.ingredient === ingredient
+    );
+    if (subInfo) {
+      setOriginalIngredient(subInfo);
+      setFromAmount(subInfo.amount.toString() || "");
+    }
+  };
 
   return (
     <div className="bg-gray-100 h-screen">
@@ -83,7 +110,7 @@ export default function SubstitutionTool() {
             <h3 className="text-xl font-bold mb-2">Ingredient</h3>
             <select
               className="border border-gray-300 rounded-l-md p-2 mb-4 h-10"
-              value={ingredient}
+              value={originalIngredient.ingredient}
               onChange={(e) => setIngredient(e.target.value)}
             >
               {ingredientsList.map((ingredient) => (
@@ -97,6 +124,7 @@ export default function SubstitutionTool() {
               className="border border-gray-300 p-2 mb-4 h-10"
               placeholder="Amount"
               value={fromAmount}
+              min="1"
               onChange={(e) => setFromAmount(e.target.value)}
             ></input>
 
@@ -104,7 +132,7 @@ export default function SubstitutionTool() {
               type="string"
               className="border border-gray-300 rounded-r-md p-2 mb-4 h-10"
               placeholder="Unit"
-              value={fromUnit}
+              value={originalIngredient.unit}
               readOnly
             ></input>
           </div>
@@ -112,37 +140,19 @@ export default function SubstitutionTool() {
 
         <div className="bg-white rounded-lg shadow-lg p-8 my-4">
           <h3 className="text-xl font-bold mb-2">Substitutions</h3>
-          {substitutions.map((substitution, index) => (
-            <div key={index} className="container mx-4">
+          {originalIngredient.substitutions.map((substitution, index) => (
+            <div key={index} className="container m-4">
               <h3 className="text-l font-bold mb-2">
                 {getDisplayText(substitution.main || "")}
               </h3>
-              {substitution.ingredients.map((ingredient, index) => (
-                <div key={index} className="flex">
-                  <input
-                    type="string"
-                    className="border border-gray-300 rounded-l-md p-2 mb-4 h-10"
-                    value={ingredient.ingredient}
-                    readOnly
-                  ></input>
-                  <input
-                    type="number"
-                    className="border border-gray-300 p-2 mb-4 h-10"
-                    placeholder="Amount"
-                    value={(
-                      parseInt(fromAmount) * ingredient.multiplier
-                    ).toString()}
-                    readOnly
-                  ></input>
-                  <input
-                    type="string"
-                    className="border border-gray-300 rounded-r-md p-2 mb-4 h-10"
-                    placeholder="Unit"
-                    value={ingredient.unit}
-                    readOnly
-                  ></input>
-                </div>
-              ))}
+              <ul className="mx-4">
+                {substitution.ingredients.map((ingredient, index) => (
+                  <li className="list-disc mx-4" key={index}>
+                    {getDisplayText(ingredient.ingredient)}:{" "}
+                    {calculateSubstitution(ingredient)} {ingredient.unit}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
