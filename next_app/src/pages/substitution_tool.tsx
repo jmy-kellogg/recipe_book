@@ -24,9 +24,9 @@ interface SubstitutionData {
 export default function SubstitutionTool() {
   const substitutionList: SubstitutionData[] = [
     {
+      ingredient: "baking_soda",
       amount: 1,
       unit: "teaspoon",
-      ingredient: "baking_soda",
       substitutions: [
         {
           main: "baking_powder",
@@ -55,6 +55,55 @@ export default function SubstitutionTool() {
         },
       ],
     },
+    {
+      ingredient: "butter",
+      amount: 1,
+      unit: "cup",
+      substitutions: [
+        {
+          main: "shortening",
+          ingredients: [
+            {
+              ingredient: "shortening",
+              amount: 1,
+              unit: "cup",
+            },
+          ],
+        },
+        {
+          main: "margarine",
+          ingredients: [
+            {
+              ingredient: "margarine",
+              amount: 1,
+              unit: "cup",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      ingredient: "baking_powder",
+      amount: 1,
+      unit: "teaspoon",
+      substitutions: [
+        {
+          main: "baking_soda",
+          ingredients: [
+            {
+              ingredient: "baking_soda",
+              amount: 0.25,
+              unit: "teaspoon",
+            },
+            {
+              ingredient: "cream_of_tartar",
+              amount: 0.625,
+              unit: "teaspoon",
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   const [fromAmount, setFromAmount] = useState<string>("1");
@@ -69,7 +118,7 @@ export default function SubstitutionTool() {
   );
 
   const calculateSubstitution = (subIngredient: SubIngredients) => {
-    if (!fromAmount || !parseInt(fromAmount)) return "0";
+    if (!fromAmount || !parseInt(fromAmount)) return "0 ";
 
     const calcInputAmount = parseInt(fromAmount) / originalIngredient.amount;
     let calcTotal = calcInputAmount * subIngredient.amount;
@@ -82,7 +131,7 @@ export default function SubstitutionTool() {
       // round to 1/3
       calcTotal = Math.floor(calcTotal) + 0.333;
       // round to 2/3
-    } else if (decimal > 0.6 && decimal < 0.7) {
+    } else if (decimal > 0.625 && decimal < 0.7) {
       calcTotal = Math.floor(calcTotal) + 0.666;
     }
 
