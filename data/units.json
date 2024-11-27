@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "name": "teaspoon",
+      "display_name": "Teaspoon",
+      "abbreviation": "tsp",
+      "system": "imperial"
+    },
+    {
+      "name": "tablespoon",
+      "display_name": "Tablespoon",
+      "abbreviation": "Tbsp",
+      "system": "imperial"
+    },
+    {
+      "name": "cup",
+      "display_name": "Cup",
+      "abbreviation": "c",
+      "system": "imperial"
+    },
+    {
+      "name": "fluid_ounce",
+      "display_name": "Fluid Ounce",
+      "abbreviation": "fl oz",
+      "system": "imperial"
+    },
+    {
+      "name": "pint",
+      "display_name": "Pint",
+      "abbreviation": "pt",
+      "system": "imperial"
+    },
+    {
+      "name": "quart",
+      "display_name": "Quart",
+      "abbreviation": "qt",
+      "system": "imperial"
+    },
+    {
+      "name": "gallon",
+      "display_name": "Gallon",
+      "abbreviation": "gal",
+      "system": "imperial"
+    },
+    {
+      "name": "milliliter",
+      "display_name": "Milliliter",
+      "abbreviation": "mL",
+      "system": "metric"
+    },
+    {
+      "name": "liter",
+      "display_name": "Liter",
+      "abbreviation": "L",
+      "system": "metric"
+    },
+    {
+      "name": "gram",
+      "display_name": "Gram",
+      "abbreviation": "g",
+      "system": "metric"
+    },
+    {
+      "name": "kilogram",
+      "display_name": "Kilogram",
+      "abbreviation": "kg",
+      "system": "metric"
+    },
+    {
+      "name": "ounce",
+      "display_name": "Ounce",
+      "abbreviation": "oz",
+      "system": "imperial"
+    },
+    {
+      "name": "pound",
+      "display_name": "Pound",
+      "abbreviation": "lb",
+      "system": "imperial"
+    }
+  ]
+}

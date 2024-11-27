@@ -1,18 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "../styles/globals.css";
 
 export default function Home() {
-  const [state, setState] = useState({
-    message: "",
-  });
-
   useEffect(() => {
-    fetch("http://localhost:8000/api/hello/")
+    fetch("http://localhost:8000/api/conversions/?ingredient=water")
       .then((response) => response.json())
-      .then((data) => setState({ ...state, message: data.message }));
+      .then((data) => {
+        console.log(data);
+      });
   }, []);
 
   return (
@@ -22,7 +20,6 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-center">
             Welcome to the Recipe Book
           </h1>
-          {/* <h1>{state.message}</h1> */}
         </div>
         <Link
           className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"

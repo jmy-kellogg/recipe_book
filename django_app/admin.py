@@ -16,5 +16,5 @@ class IngredientAdmin(admin.ModelAdmin):
 @admin.register(Conversion)
 class ConversionAdmin(admin.ModelAdmin):
     list_display = ('id', 'ingredient', 'from_unit', 'to_unit', 'factor')
-    ordering = ['id', 'ingredient', 'from_unit', 'to_unit', 'factor']
+    ordering = ['ingredient', 'from_unit', 'to_unit']
     search_fields = ['id', 'ingredient', 'from_unit', 'to_unit', 'factor']
