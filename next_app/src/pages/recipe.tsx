@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import "../styles/globals.css";
 
 export default function Recipe() {

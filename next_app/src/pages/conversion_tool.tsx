@@ -1,60 +1,64 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import water from "../app/conversions/water.json";
-import flour from "../app/conversions/flour.json";
 import "../styles/globals.css";
 
-export default function ConversionTool() {
-  const [ingredients, setIngredients] = useState<string>("water");
-  const [fromAmount, setFromAmount] = useState<string>("");
-  const [fromUnit, setFromUnit] = useState<string>("cup");
-  const [toAmount, setToAmount] = useState<string>("");
-  const [toUnit, setToUnit] = useState<string>("gram");
-
-  const unitList: string[] = [
-    "cup",
-    "tablespoon",
-    "teaspoon",
-    "ounce",
-    "pound",
-    "fluid_ounce",
-    "gram",
-    "kilogram",
-    "milliliter",
-    "liter",
-  ];
-
-  interface ConversionChart {
-    [key: string]: {
-      [unit: string]: {
-        [unit: string]: number;
-      };
+interface ConversionChart {
+  [key: string]: {
+    [unit: string]: {
+      [unit: string]: number;
     };
-  }
-
-  const conversionChart: ConversionChart = {
-    water: water,
-    flour: flour,
-    sugar: {},
-    butter: {},
-    milk: {},
-    salt: {},
-    pepper: {},
   };
+}
+
+export default function ConversionTool() {
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [conversions, setConversions] = useState<ConversionChart>({});
+  const [ingredient, setIngredient] = useState<string>("");
+  const [fromAmount, setFromAmount] = useState<string>("1");
+  const [fromUnit, setFromUnit] = useState<string>("");
+  const [toAmount, setToAmount] = useState<string>("");
+  const [toUnit, setToUnit] = useState<string>("");
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/conversions/?ingredient=water")
+      .then((response) => response.json())
+      .then((data) => {
+        const ingredientsList = Object.keys(data);
+        const ingredient = ingredientsList[0];
+        const fromUnit = Object.keys(data[ingredient])[0];
+        const toUnit = Object.keys(data[ingredient][fromUnit])[0];
+
+        setIngredients(ingredientsList);
+        setConversions(data);
+        setIngredient(ingredient);
+        setFromUnit(fromUnit);
+        setToUnit(toUnit);
+        setFromAmount("1");
+      });
+  }, []);
 
   const calculateConversion = () => {
     const intFrom = parseInt(fromAmount || "0");
-    const ingredientsChart = conversionChart[ingredients] || {};
+    const ingredientsChart = conversions[ingredient] || {};
     const multiplyBy = ingredientsChart[fromUnit]?.[toUnit] || 0;
     const intTo = intFrom * multiplyBy;
 
     setToAmount(intTo.toString());
   };
 
+  const unitOptions = (ingredient: string) => {
+    const availableUnits = Object.keys(conversions[ingredient] || []);
+    return availableUnits.map((unit) => (
+      <option key={unit} value={unit}>
+        {unit}
+      </option>
+    ));
+  };
+
   useEffect(() => {
     calculateConversion();
-  }, [ingredients, fromAmount, fromUnit, toUnit]);
+  }, [ingredient, fromAmount, fromUnit, toUnit]);
 
   return (
     <div className="bg-gray-100 h-screen">
@@ -67,17 +71,14 @@ export default function ConversionTool() {
             <h3 className="text-xl font-bold mb-2">Ingredients</h3>
             <select
               className="border border-gray-300 rounded-md p-2 mb-4"
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
+              value={ingredient}
+              onChange={(e) => setIngredient(e.target.value)}
             >
-              <option value="water">Water</option>
-              <option value="flour">Flour</option>
-              <option value="sugar">Sugar</option>
-              <option value="butter">Butter</option>
-              <option value="milk">Milk</option>
-              <option value="water">Water</option>
-              <option value="salt">Salt</option>
-              <option value="pepper">Pepper</option>
+              {ingredients.map((ingredient: string) => (
+                <option key={ingredient} value={ingredient}>
+                  {ingredient}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -96,11 +97,7 @@ export default function ConversionTool() {
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value)}
               >
-                {unitList.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
+                {unitOptions(ingredient)}
               </select>
             </div>
           </div>
@@ -119,11 +116,7 @@ export default function ConversionTool() {
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value)}
               >
-                {unitList.map((unit) => (
-                  <option key={unit} value={unit}>
-                    {unit}
-                  </option>
-                ))}
+                {unitOptions(ingredient)}
               </select>
             </div>
           </div>
