@@ -1,0 +1,82 @@
+{
+  "teaspoon": {
+    "teaspoon": 1,
+    "tablespoon": 0.333333,
+    "cup": 0.020833,
+    "quart": 0.005208,
+    "gram": 4.166667,
+    "kilogram": 0.004167,
+    "ounce": 0.146975,
+    "pound": 0.009186
+  },
+  "tablespoon": {
+    "teaspoon": 3,
+    "tablespoon": 1,
+    "cup": 0.0625,
+    "quart": 0.015625,
+    "gram": 12.5,
+    "kilogram": 0.0125,
+    "ounce": 0.440925,
+    "pound": 0.027558
+  },
+  "cup": {
+    "teaspoon": 48,
+    "tablespoon": 16,
+    "cup": 1,
+    "quart": 0.25,
+    "gram": 200,
+    "kilogram": 0.2,
+    "ounce": 7.054792,
+    "pound": 0.440925
+  },
+  "quart": {
+    "teaspoon": 192,
+    "tablespoon": 64,
+    "cup": 4,
+    "quart": 1,
+    "gram": 800,
+    "kilogram": 0.8,
+    "ounce": 28.21917,
+    "pound": 1.763698
+  },
+  "gram": {
+    "teaspoon": 0.24,
+    "tablespoon": 0.08,
+    "cup": 0.005,
+    "quart": 0.00125,
+    "gram": 1,
+    "kilogram": 0.001,
+    "ounce": 0.035274,
+    "pound": 0.002205
+  },
+  "kilogram": {
+    "teaspoon": 240,
+    "tablespoon": 80,
+    "cup": 5,
+    "quart": 1.25,
+    "gram": 1000,
+    "kilogram": 1,
+    "ounce": 35.273962,
+    "pound": 2.204623
+  },
+  "ounce": {
+    "teaspoon": 6.803886,
+    "tablespoon": 2.267962,
+    "cup": 0.141748,
+    "quart": 0.035437,
+    "gram": 28.349523,
+    "kilogram": 0.02835,
+    "ounce": 1,
+    "pound": 0.0625
+  },
+  "pound": {
+    "teaspoon": 108.862169,
+    "tablespoon": 36.28739,
+    "cup": 2.267962,
+    "quart": 0.56699,
+    "gram": 453.59237,
+    "kilogram": 0.453592,
+    "ounce": 16,
+    "pound": 1
+  }
+}

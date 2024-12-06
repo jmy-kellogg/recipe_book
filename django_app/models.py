@@ -28,3 +28,32 @@ class Conversion(models.Model):
 
     def __str__(self):
       return f"conversion factor: {self.factor}"
+    
+class Recipe(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100,blank=False, null=False)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    instructions = models.TextField(blank=True, null=True)
+    tips = models.TextField(blank=True, null=True)
+    servings = models.IntegerField(blank=True, null=True)
+    prep_time = models.DurationField(blank=True, null=True)
+    cook_time = models.DurationField(blank=True, null=True)
+    total_time = models.DurationField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    ingredients = models.ManyToManyField(Ingredient, through='RecipeIngredient')
+
+    def __str__(self):
+      return self.name
+
+class RecipeIngredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=5)
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    optional = models.BooleanField(default=False)
+
+    def __str__(self):
+      return f"{self.amount} {self.unit.abbreviation} {self.ingredient.name}"
+
