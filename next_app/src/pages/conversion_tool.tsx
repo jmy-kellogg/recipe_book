@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getAmountDisplay, getDisplayText } from "../utils/displayText";
 import "../styles/globals.css";
 
 interface ConversionChart {
@@ -21,7 +22,7 @@ export default function ConversionTool() {
   const [toUnit, setToUnit] = useState<string>("");
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/conversions/?ingredient=water")
+    fetch("http://localhost:8000/api/conversions/")
       .then((response) => response.json())
       .then((data) => {
         const ingredientsList = Object.keys(data);
@@ -38,27 +39,24 @@ export default function ConversionTool() {
       });
   }, []);
 
-  const calculateConversion = () => {
-    const intFrom = parseInt(fromAmount || "0");
-    const ingredientsChart = conversions[ingredient] || {};
-    const multiplyBy = ingredientsChart[fromUnit]?.[toUnit] || 0;
-    const intTo = intFrom * multiplyBy;
-
-    setToAmount(intTo.toString());
-  };
-
   const unitOptions = (ingredient: string) => {
     const availableUnits = Object.keys(conversions[ingredient] || []);
     return availableUnits.map((unit) => (
       <option key={unit} value={unit}>
-        {unit}
+        {getDisplayText(unit)}
       </option>
     ));
   };
 
   useEffect(() => {
-    calculateConversion();
-  }, [ingredient, fromAmount, fromUnit, toUnit]);
+    // todo: move to a helper function
+    const intFrom = parseInt(fromAmount || "0");
+    const ingredientsChart = conversions[ingredient] || {};
+    const multiplyBy = ingredientsChart[fromUnit]?.[toUnit] || 0;
+    const intTo = intFrom * multiplyBy;
+
+    setToAmount(getAmountDisplay(intTo));
+  }, [ingredient, fromAmount, fromUnit, toUnit, conversions]);
 
   return (
     <div className="bg-gray-100 h-screen">
@@ -105,7 +103,6 @@ export default function ConversionTool() {
             <h3 className="text-xl font-bold mb-2">To Amount</h3>
             <div className="flex">
               <input
-                type="number"
                 className="border border-gray-300 rounded-l-md p-2 mb-4 h-10"
                 placeholder="Amount"
                 value={toAmount}
