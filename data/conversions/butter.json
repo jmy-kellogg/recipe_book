@@ -94,5 +94,29 @@
     "gram": 1,
     "kilogram": 0.001,
     "liter": 0.001043173
+  },
+  "kilogram": {
+    "cup": 4.409,
+    "stick_of_butter": 8.818,
+    "tablespoon": 70.548,
+    "teaspoon": 211.643,
+    "milliliter": 1043.173,
+    "pound": 2.20462,
+    "ounce": 35.27396,
+    "gram": 1000,
+    "kilogram": 1,
+    "liter": 1.043173
+  },
+  "liter": {
+    "cup": 4.22675,
+    "stick_of_butter": 8.4535,
+    "tablespoon": 67.628,
+    "teaspoon": 202.884,
+    "milliliter": 1000,
+    "pound": 2.11338,
+    "ounce": 33.814,
+    "gram": 958.614,
+    "kilogram": 0.958614,
+    "liter": 1
   }
 }

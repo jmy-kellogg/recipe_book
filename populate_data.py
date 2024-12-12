@@ -7,6 +7,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_book.settings')
 django.setup()
 
 from django_app.models import Conversion, Ingredient, Unit
+import sys
 
 
 
@@ -106,10 +107,12 @@ def conversions():
 
     print("Data inserted successfully!")
 
-# Unit.objects.all().delete()
-# Ingredient.objects.all().delete()
-# Conversion.objects.all().delete()
-
-# units()
-# ingredients()
-# conversions() 
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        function_name = sys.argv[1]
+        if function_name in globals():
+            globals()[function_name]()
+        else:
+            print(f"No such function: {function_name}")
+    else:
+        print("Please provide a function name to run.")
