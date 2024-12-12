@@ -23,6 +23,9 @@ export const unitDisplay: DisplayText = {
   kilogram: "Kilogram",
   milliliter: "Milliliter",
   liter: "Liter",
+  dash: "Dash",
+  pinch: "Pinch",
+  stick_of_butter: "Stick",
 };
 
 export const amountDisplay: DisplayText = {
@@ -45,6 +48,7 @@ export const amountDisplay: DisplayText = {
   0.8333: "5/6",
   0.875: "7/8",
   0.9375: "15/16",
+  1: "1",
 }
 
 export const displayList: DisplayText = {
@@ -57,13 +61,23 @@ export const getDisplayText = (key: string) => {
   return displayList[key] || key;
 };
 
+// clean up and test
 export const getAmountDisplay = (amount: number) => {
   const decimalStr = (amount % 1).toString().slice(0, 6);
-  const wholePortion = Math.floor(amount);
-  const decimalPortion = amount % 1 < 1 && amountDisplay[decimalStr]
+  let wholePortion = Math.floor(amount);
+  let decimalPortion = amount % 1 < 1 && amountDisplay[decimalStr]
 
-  if(!wholePortion && !decimalPortion){
-    return amount.toString()
+  if(!decimalPortion){
+    const amounts = Object.keys(amountDisplay).map(Number);
+    const closest = amounts.reduce((prev, curr) => Math.abs(curr - amount) < Math.abs(prev - amount) ? curr : prev);
+
+    if(closest === 1){
+      wholePortion += 1;
+    } else if(amountDisplay[closest]) {
+      decimalPortion = amountDisplay[closest];
+    } else {
+      return amount.toString()
+    }
   }
 
   return [wholePortion, decimalPortion].filter(value => !!value).join(" ");

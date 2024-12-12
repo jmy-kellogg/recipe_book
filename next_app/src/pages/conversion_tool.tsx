@@ -15,7 +15,7 @@ interface ConversionChart {
 export default function ConversionTool() {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [conversions, setConversions] = useState<ConversionChart>({});
-  const [ingredient, setIngredient] = useState<string>("");
+  const [ingredient, setIngredient] = useState<string>("water");
   const [fromAmount, setFromAmount] = useState<string>("1");
   const [fromUnit, setFromUnit] = useState<string>("");
   const [toAmount, setToAmount] = useState<string>("");
@@ -32,7 +32,6 @@ export default function ConversionTool() {
 
         setIngredients(ingredientsList);
         setConversions(data);
-        setIngredient(ingredient);
         setFromUnit(fromUnit);
         setToUnit(toUnit);
         setFromAmount("1");
@@ -74,7 +73,7 @@ export default function ConversionTool() {
             >
               {ingredients.map((ingredient: string) => (
                 <option key={ingredient} value={ingredient}>
-                  {ingredient}
+                  {getDisplayText(ingredient)}
                 </option>
               ))}
             </select>
