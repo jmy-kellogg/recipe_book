@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Unit, Ingredient, Conversion
+from .models import Unit, Ingredient, Conversion, Recipe, RecipeIngredient
 
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
@@ -18,3 +18,15 @@ class ConversionAdmin(admin.ModelAdmin):
     list_display = ('id', 'ingredient', 'from_unit', 'to_unit', 'factor')
     ordering = ['ingredient', 'from_unit', 'to_unit']
     search_fields = ['id', 'ingredient', 'from_unit', 'to_unit', 'factor']
+
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at')
+    ordering = ['name', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at']
+    search_fields = ['id', 'name', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at']
+
+@admin.register(RecipeIngredient)
+class RecipeIngredientAdmin(admin.ModelAdmin):
+    list_display = ('recipe', 'ingredient', 'amount', 'unit', 'optional')
+    ordering = ['recipe', 'ingredient', 'amount', 'unit', 'optional']
+    search_fields = ['recipe', 'ingredient', 'amount', 'unit', 'optional']

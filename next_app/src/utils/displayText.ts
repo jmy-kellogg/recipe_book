@@ -1,5 +1,6 @@
 interface DisplayText  { [key: string]: string }
 
+// to do: pull from database so that we don't have duplicate places to update
 export const ingredientsDisplay: DisplayText = {
   baking_soda: "Baking Soda",
   baking_powder: "Baking Powder",

@@ -110,7 +110,11 @@ def conversions():
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         function_name = sys.argv[1]
-        if function_name in globals():
+        if function_name == "init":
+            units()
+            ingredients()
+            conversions()
+        elif function_name in globals():
             globals()[function_name]()
         else:
             print(f"No such function: {function_name}")
