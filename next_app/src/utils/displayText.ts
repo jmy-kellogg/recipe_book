@@ -62,24 +62,30 @@ export const getDisplayText = (key: string) => {
   return displayList[key] || key;
 };
 
+const formatAmountString = (whole: number | string, decimal: number | string) => {
+  return [whole, amountDisplay[decimal]].filter(value => !!value).join(" ");
+}
+
 // clean up and test
 export const getAmountDisplay = (amount: number) => {
-  const decimalStr = (amount % 1).toString().slice(0, 6);
-  let wholePortion = Math.floor(amount);
-  let decimalPortion = amount % 1 < 1 && amountDisplay[decimalStr]
+  const decimalPortion = amount % 1
+  const wholePortion = Math.floor(amount);
+  const decimalStr = (decimalPortion).toString().slice(0, 6);
 
-  if(!decimalPortion){
+  if(decimalPortion === 0){
+    return wholePortion.toString();
+  } else if(amountDisplay[decimalStr]){
+    return formatAmountString(wholePortion, decimalStr)
+  }else {
     const amounts = Object.keys(amountDisplay).map(Number);
     const closest = amounts.reduce((prev, curr) => Math.abs(curr - amount) < Math.abs(prev - amount) ? curr : prev);
 
     if(closest === 1){
-      wholePortion += 1;
-    } else if(amountDisplay[closest]) {
-      decimalPortion = amountDisplay[closest];
-    } else {
+      return (wholePortion+1).toString();
+    }else if(amountDisplay[closest]) {
+      return formatAmountString(wholePortion, amountDisplay[closest]);
+    }else{
       return amount.toString()
     }
   }
-
-  return [wholePortion, decimalPortion].filter(value => !!value).join(" ");
 }

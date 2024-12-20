@@ -21,9 +21,9 @@ class ConversionAdmin(admin.ModelAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at')
-    ordering = ['name', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at']
-    search_fields = ['id', 'name', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at']
+    list_display = ('id', 'name', 'title', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at')
+    ordering = ['name', 'title', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at']
+    search_fields = ['id', 'name', 'title', 'description', 'servings', 'prep_time', 'cook_time', 'total_time', 'created_at', 'updated_at']
 
 @admin.register(RecipeIngredient)
 class RecipeIngredientAdmin(admin.ModelAdmin):

@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 class Unit(models.Model):
@@ -30,8 +31,9 @@ class Conversion(models.Model):
       return f"conversion factor: {self.factor}"
     
 class Recipe(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100,blank=False, null=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    name = models.CharField(max_length=100, unique=True, blank=False, null=False)
+    title = models.CharField(max_length=100, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     instructions = models.TextField(blank=True, null=True)

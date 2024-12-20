@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from django_app.models import Conversion
+from django_app.models import Conversion, Recipe, RecipeIngredient
 
 
 @api_view(['GET'])
@@ -25,7 +25,7 @@ def conversions(request):
         return Response({"error": f"Error retrieving conversions: {e}"}, status=500)
 
 @api_view(['GET'])
-def one_conversions(request):
+def conversion(request):
     ingredient = request.query_params.get('ingredient')
 
     if not ingredient:
@@ -46,3 +46,31 @@ def one_conversions(request):
    
     except Exception as e:
         return Response({"error": f"Error retrieving conversions: {e}"}, status=500)
+
+@api_view(['GET'])
+def recipes(request, recipe_name):
+    try:
+        recipe_obj = Recipe.objects.get(name=recipe_name)
+        ingredients_list = RecipeIngredient.objects.filter(recipe=recipe_obj)
+        ingredients = [
+            {
+                "name": ingredient.ingredient.name,
+                "amount": ingredient.amount,
+                "unit": ingredient.unit.name,
+                "optional": ingredient.optional
+            }
+            for ingredient in ingredients_list
+        ]
+        recipe_data = {
+            "id": str(recipe_obj.id),
+            "name": recipe_obj.name,
+            "title": recipe_obj.title,
+            "description": recipe_obj.description,
+            "ingredients": ingredients,
+            "instructions": recipe_obj.instructions,
+            "tips": recipe_obj.tips,
+        }
+        return Response(recipe_data)
+   
+    except Exception as e:
+        return Response({"error": f"Error retrieving recipe: {e}"}, status=500)
