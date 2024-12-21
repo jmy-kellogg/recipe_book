@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import "../styles/globals.css";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -12,6 +13,13 @@ export default function Home() {
             Welcome to the Recipe Book
           </h1>
         </div>
+        <Link
+          className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+          href="http://localhost:3000/recipes"
+          rel="noopener noreferrer"
+        >
+          Recipe List
+        </Link>
         <Link
           className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
           href="http://localhost:3000/chocolate_candy"

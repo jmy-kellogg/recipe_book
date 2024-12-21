@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getDisplayText, getAmountDisplay } from "../app/helper/displayText";
+import { getDisplayText, getAmountDisplay } from "../utils/displayText";
 import { SelectOption } from "../app/helper/interfaces";
 import "../styles/globals.css";
 

@@ -48,7 +48,7 @@ def conversion(request):
         return Response({"error": f"Error retrieving conversions: {e}"}, status=500)
 
 @api_view(['GET'])
-def recipes(request, recipe_name):
+def recipe(request, recipe_name):
     try:
         recipe_obj = Recipe.objects.get(name=recipe_name)
         ingredients_list = RecipeIngredient.objects.filter(recipe=recipe_obj)
@@ -74,3 +74,24 @@ def recipes(request, recipe_name):
    
     except Exception as e:
         return Response({"error": f"Error retrieving recipe: {e}"}, status=500)
+    
+@api_view(['GET'])
+def recipes(request):
+    try:
+        recipes_list = Recipe.objects.all()
+        recipes_resp = {
+            "recipes": [
+                {
+                    "id": str(recipe.id),
+                    "name": recipe.name,
+                    "title": recipe.title,
+                    "description": recipe.description,
+                    "image": recipe.image.url if recipe.image else None,
+                }
+                for recipe in recipes_list
+            ]
+        }
+        return Response(recipes_resp)
+   
+    except Exception as e:
+        return Response({"error": f"Error retrieving recipes"}, status=500)
