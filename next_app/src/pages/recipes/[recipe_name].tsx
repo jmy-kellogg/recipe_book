@@ -15,6 +15,7 @@ export default function Recipe() {
     description: string;
     instructions: string;
     tips: string;
+    image: string;
     ingredients: {
       name: string;
       amount: string;
@@ -27,7 +28,17 @@ export default function Recipe() {
     instructions: "",
     tips: "",
     ingredients: [],
+    image: "",
   });
+
+  const getIngredientItem = (ingredient) => {
+    const amount = getAmountDisplay(parseFloat(ingredient.amount));
+    const unit = ingredient.unit
+      ? `${ingredient.unit} of ${ingredient.name}`
+      : `${ingredient.name}`;
+
+    return <li key={ingredient.name}>{`${amount} ${unit}`}</li>;
+  };
 
   useEffect(() => {
     if (recipe_name) {
@@ -40,6 +51,7 @@ export default function Recipe() {
             instructions: recipe.instructions || "",
             tips: recipe.tips || "",
             ingredients: recipe.ingredients || [],
+            image: recipe.image || "",
           });
         });
     }
@@ -50,10 +62,12 @@ export default function Recipe() {
       <div>
         <div className="flex p-4">
           <Image
-            src="/static/recipe_default.jpg"
+            src={data.image || "/static/recipe_default.jpg"}
             alt="Recipe Image"
             width={150}
             height={150}
+            className="rounded-md"
+            priority={true}
           />
           <div className="flex-auto container mx-auto px-4">
             <h1 className="text-3xl font-bold">{data.title}</h1>
@@ -83,21 +97,13 @@ export default function Recipe() {
           <ul className="list-disc ml-6 mb-4">
             {data.ingredients
               .filter((ingredient) => !ingredient.optional)
-              .map((ingredient) => (
-                <li key={ingredient.name}>{`${getAmountDisplay(
-                  parseFloat(ingredient.amount)
-                )} ${ingredient.unit} of ${ingredient.name}`}</li>
-              ))}
+              .map((ingredient) => getIngredientItem(ingredient))}
           </ul>
           <h4 className="text-xl mb-2">Optional Ingredients</h4>
           <ul className="list-disc ml-6 mb-4">
             {data.ingredients
               .filter((ingredient) => !!ingredient.optional)
-              .map((ingredient) => (
-                <li key={ingredient.name}>{`${getAmountDisplay(
-                  parseFloat(ingredient.amount)
-                )} ${ingredient.unit} of ${ingredient.name}`}</li>
-              ))}
+              .map((ingredient) => getIngredientItem(ingredient))}
           </ul>
         </div>
       </div>

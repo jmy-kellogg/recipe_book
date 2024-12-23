@@ -7,8 +7,8 @@ class Unit(models.Model):
       ('metric', 'Metric'),
     ]
     name = models.CharField(max_length=50, primary_key=True, unique=True, blank=False, null=False)
-    display_name = models.CharField(max_length=50)
-    abbreviation = models.CharField(max_length=25)
+    display_name = models.CharField(max_length=50, blank=True, null=True)
+    abbreviation = models.CharField(max_length=25, blank=False, null=False)
     system = models.CharField(max_length=25, choices=SYSTEM_CHOICES, null=False, blank=False)
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100, unique=True, blank=False, null=False)
     title = models.CharField(max_length=100, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(upload_to='static/', blank=True, null=True)
     instructions = models.TextField(blank=True, null=True)
     tips = models.TextField(blank=True, null=True)
     servings = models.IntegerField(blank=True, null=True)
@@ -57,5 +57,5 @@ class RecipeIngredient(models.Model):
     optional = models.BooleanField(default=False)
 
     def __str__(self):
-      return f"{self.amount} {self.unit.abbreviation} {self.ingredient.name}"
+      return f"{self.ingredient.name}"
 

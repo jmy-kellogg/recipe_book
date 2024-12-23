@@ -56,11 +56,12 @@ def recipe(request, recipe_name):
             {
                 "name": ingredient.ingredient.name,
                 "amount": ingredient.amount,
-                "unit": ingredient.unit.name,
+                "unit": ingredient.unit.name if ingredient.unit else None,
                 "optional": ingredient.optional
             }
             for ingredient in ingredients_list
         ]
+
         recipe_data = {
             "id": str(recipe_obj.id),
             "name": recipe_obj.name,
@@ -69,7 +70,9 @@ def recipe(request, recipe_name):
             "ingredients": ingredients,
             "instructions": recipe_obj.instructions,
             "tips": recipe_obj.tips,
+            "image": recipe_obj.image.url if recipe_obj.image else None,
         }
+
         return Response(recipe_data)
    
     except Exception as e:

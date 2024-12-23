@@ -9,6 +9,7 @@ interface Recipe {
   title: string;
   name: string;
   description: string;
+  image: string;
 }
 
 export default function Recipes() {
@@ -32,14 +33,13 @@ export default function Recipes() {
           >
             <div className="bg-white rounded-lg shadow-lg m-4 p-8 h-auto">
               <div className="flex">
-                <div className="overflow-hidden rounded-md h-full">
-                  <Image
-                    src="/static/recipe_default.jpg"
-                    alt="Recipe Image"
-                    width={150}
-                    height={150}
-                  />
-                </div>
+                <Image
+                  src={recipe.image || "/static/recipe_default.jpg"}
+                  alt="Recipe Image"
+                  width={125}
+                  height={125}
+                  className="rounded-md"
+                />
                 <div>
                   <h1 className="text-2xl ml-4">{recipe.title}</h1>
 
