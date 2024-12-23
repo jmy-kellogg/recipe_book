@@ -1,8 +1,15 @@
 "use client";
 
-import "../../styles/globals.css";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+
+interface Recipe {
+  id: number;
+  title: string;
+  name: string;
+  description: string;
+}
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -18,18 +25,30 @@ export default function Recipes() {
   return (
     <div className="bg-gray-100 h-full">
       <div className="container h-full mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          {recipes.map((recipe) => (
-            <div key={recipe.id}>
-              <h1>
-                <Link href={`http://localhost:3000/recipes/${recipe.name}`}>
-                  {recipe.title}
-                </Link>
-              </h1>
-              <p>{recipe.description}</p>
+        {recipes.map((recipe: Recipe) => (
+          <Link
+            key={recipe.id}
+            href={`http://localhost:3000/recipes/${recipe.name}`}
+          >
+            <div className="bg-white rounded-lg shadow-lg m-4 p-8 h-auto">
+              <div className="flex">
+                <div className="overflow-hidden rounded-md h-full">
+                  <Image
+                    src="/static/recipe_default.jpg"
+                    alt="Recipe Image"
+                    width={150}
+                    height={150}
+                  />
+                </div>
+                <div>
+                  <h1 className="text-2xl ml-4">{recipe.title}</h1>
+
+                  <p className="m-4">{recipe.description}</p>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

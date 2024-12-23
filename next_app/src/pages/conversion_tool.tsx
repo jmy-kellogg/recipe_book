@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { getAmountDisplay, getDisplayText } from "../utils/displayText";
-import "../styles/globals.css";
 
 interface ConversionChart {
   [key: string]: {

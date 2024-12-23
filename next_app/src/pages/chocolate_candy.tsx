@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getAmountDisplay } from "../utils/displayText";

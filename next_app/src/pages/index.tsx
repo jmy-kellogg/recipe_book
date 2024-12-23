@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import "../styles/globals.css";
 import Image from "next/image";
 
 export default function Home() {
