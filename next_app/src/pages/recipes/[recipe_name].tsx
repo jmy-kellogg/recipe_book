@@ -43,6 +43,16 @@ export default function Recipe() {
     return <li key={ingredient.name}>{`${amount} ${unit}`}</li>;
   };
 
+  const updateRecipe = () => {
+    fetch(`http://localhost:8000/api/recipes/${recipe_name}/update/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(() => setEditing(false));
+  };
+
   useEffect(() => {
     if (recipe_name) {
       fetch(`http://localhost:8000/api/recipes/${recipe_name}/`)
@@ -75,24 +85,33 @@ export default function Recipe() {
           <div className="flex-auto container mx-auto px-4">
             <div className="flex">
               {editing ? (
-                <textarea className="w-full h-10 text-lg font-bold border-dashed border-2 border-gray-200 p-2">
-                  {data.title || ""}
-                </textarea>
+                <textarea
+                  className="w-full h-10 text-lg font-bold border-dashed border-2 border-gray-200 p-2"
+                  value={data.title}
+                  onChange={(e) => setData({ ...data, title: e.target.value })}
+                ></textarea>
               ) : (
                 <h1 className="text-3xl font-bold">{data.title}</h1>
               )}
-              <button className="ml-2" onClick={() => setEditing(!editing)}>
-                {editing ? (
+
+              {editing ? (
+                <button className="ml-2" onClick={updateRecipe}>
                   <DocumentCheckIcon className="size-6" />
-                ) : (
+                </button>
+              ) : (
+                <button className="ml-2" onClick={() => setEditing(true)}>
                   <PencilIcon className="size-6" />
-                )}
-              </button>
+                </button>
+              )}
             </div>
             {editing ? (
-              <textarea className="w-full h-3/4 border-dashed border-2 border-gray-200 p-2">
-                {data.description || ""}
-              </textarea>
+              <textarea
+                className="w-full h-3/4 border-dashed border-2 border-gray-200 p-2"
+                value={data.description}
+                onChange={(e) =>
+                  setData({ ...data, description: e.target.value })
+                }
+              ></textarea>
             ) : (
               <p>{data.description || ""}</p>
             )}
@@ -105,9 +124,13 @@ export default function Recipe() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Instructions</h3>
                 {editing ? (
-                  <textarea className="w-full border-dashed border-2 border-gray-200 p-2">
-                    {data.instructions || ""}
-                  </textarea>
+                  <textarea
+                    className="w-full border-dashed border-2 border-gray-200 p-2"
+                    value={data.instructions}
+                    onChange={(e) =>
+                      setData({ ...data, instructions: e.target.value })
+                    }
+                  ></textarea>
                 ) : (
                   <p>{data.instructions || ""}</p>
                 )}
@@ -115,9 +138,11 @@ export default function Recipe() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Tips</h3>
                 {editing ? (
-                  <textarea className="w-full border-dashed border-2 border-gray-200 p-2">
-                    {data.tips || ""}
-                  </textarea>
+                  <textarea
+                    className="w-full border-dashed border-2 border-gray-200 p-2"
+                    value={data.tips}
+                    onChange={(e) => setData({ ...data, tips: e.target.value })}
+                  ></textarea>
                 ) : (
                   <p>{data.tips || ""}</p>
                 )}
