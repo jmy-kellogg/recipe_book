@@ -5,11 +5,14 @@ import "../../styles/globals.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getAmountDisplay } from "../../utils/displayText";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { DocumentCheckIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 export default function Recipe() {
   const router = useRouter();
   const { recipe_name } = router.query;
-
+  const [editing, setEditing] = useState(false);
   const [data, setData] = useState<{
     title: string;
     description: string;
@@ -59,7 +62,7 @@ export default function Recipe() {
 
   return (
     <div className="flex bg-gray-100">
-      <div>
+      <div className="flex-auto container mx-auto px-4 py-8">
         <div className="flex p-4">
           <Image
             src={data.image || "/static/recipe_default.jpg"}
@@ -70,8 +73,29 @@ export default function Recipe() {
             priority={true}
           />
           <div className="flex-auto container mx-auto px-4">
-            <h1 className="text-3xl font-bold">{data.title}</h1>
-            <p className="mb-4">{data.description || ""}</p>
+            <div className="flex">
+              {editing ? (
+                <textarea className="w-full h-10 text-lg font-bold border-dashed border-2 border-gray-200 p-2">
+                  {data.title || ""}
+                </textarea>
+              ) : (
+                <h1 className="text-3xl font-bold">{data.title}</h1>
+              )}
+              <button className="ml-2" onClick={() => setEditing(!editing)}>
+                {editing ? (
+                  <DocumentCheckIcon className="size-6" />
+                ) : (
+                  <PencilIcon className="size-6" />
+                )}
+              </button>
+            </div>
+            {editing ? (
+              <textarea className="w-full h-3/4 border-dashed border-2 border-gray-200 p-2">
+                {data.description || ""}
+              </textarea>
+            ) : (
+              <p>{data.description || ""}</p>
+            )}
           </div>
         </div>
 
@@ -80,11 +104,23 @@ export default function Recipe() {
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div>
                 <h3 className="text-xl font-bold mb-2">Instructions</h3>
-                <p>{data.instructions || ""}</p>
+                {editing ? (
+                  <textarea className="w-full border-dashed border-2 border-gray-200 p-2">
+                    {data.instructions || ""}
+                  </textarea>
+                ) : (
+                  <p>{data.instructions || ""}</p>
+                )}
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">Tips</h3>
-                <p>{data.tips || ""}</p>
+                {editing ? (
+                  <textarea className="w-full border-dashed border-2 border-gray-200 p-2">
+                    {data.tips || ""}
+                  </textarea>
+                ) : (
+                  <p>{data.tips || ""}</p>
+                )}
               </div>
             </div>
           </div>
@@ -94,17 +130,32 @@ export default function Recipe() {
         <div className="bg-white h-full rounded-lg shadow-lg p-8">
           <h3 className="text-xl font-bold mb-2">Ingredients</h3>
           <h4 className="text-xl mb-2">Main Ingredients</h4>
-          <ul className="list-disc ml-6 mb-4">
+          <ul className="list-disc ml-6">
             {data.ingredients
               .filter((ingredient) => !ingredient.optional)
               .map((ingredient) => getIngredientItem(ingredient))}
           </ul>
+          <div></div>
+          {editing ? (
+            <div className="flex justify-end mb-4">
+              <button>
+                <PlusIcon className="size-6" />
+              </button>
+            </div>
+          ) : null}
           <h4 className="text-xl mb-2">Optional Ingredients</h4>
           <ul className="list-disc ml-6 mb-4">
             {data.ingredients
               .filter((ingredient) => !!ingredient.optional)
               .map((ingredient) => getIngredientItem(ingredient))}
           </ul>
+          {editing ? (
+            <div className="flex justify-end mb-4">
+              <button>
+                <PlusIcon className="size-6" />
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
