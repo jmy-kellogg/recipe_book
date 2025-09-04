@@ -6,7 +6,7 @@ Migrate database:
 
 ```bash
 python manage.py makemigrations
-python manage.py migrate 
+python manage.py migrate
 ```
 
 Create super user for development:
@@ -47,34 +47,36 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
 
-To access the Django admin open [http://localhost:8000/admin/](http://localhost:8000/admin/)
+To access the Django admin open [http://localhost:3030/admin/](http://localhost:3030/admin/)
 
 ## Django Development
 
 Create new models
 
-``` bash
+```bash
  python manage.py makemigrations
 ```
 
 Migrate changes database
 
 ```bash
-python manage.py migrate 
+python manage.py migrate
 ```
 
 To access the django shell
 
 ```bash
-python manage.py dbshell   
+python manage.py dbshell
 ```
 
 ## Next Development
+
 App entry `next_app/src/pages/index.tsx`
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ### Learn More
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 To learn more about Next.js, take a look at the following resources:
