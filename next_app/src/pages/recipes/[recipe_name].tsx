@@ -8,6 +8,7 @@ import { getAmountDisplay } from "../../utils/displayText";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { DocumentCheckIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { RichTextarea, createRegexRenderer } from "rich-textarea";
 
 export default function Recipe() {
   const router = useRouter();
@@ -33,6 +34,10 @@ export default function Recipe() {
     ingredients: [],
     image: "",
   });
+
+  const renderer = createRegexRenderer([
+    [/[A-Z][a-z]+/g, { borderRadius: "3px", backgroundColor: "#d0bfff" }],
+  ]);
 
   const getIngredientItem = (ingredient) => {
     const amount = getAmountDisplay(parseFloat(ingredient.amount));
@@ -124,29 +129,38 @@ export default function Recipe() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Instructions</h3>
                 {editing ? (
-                  <textarea
-                    className="w-full border-dashed border-2 border-gray-200 p-2"
+                  <RichTextarea
                     value={data.instructions}
                     onChange={(e) =>
                       setData({ ...data, instructions: e.target.value })
                     }
-                  ></textarea>
+                  >
+                    {renderer}
+                  </RichTextarea>
                 ) : (
-                  <p>{data.instructions || ""}</p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: data.instructions || "",
+                    }}
+                  />
                 )}
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Tips</h3>
-                {editing ? (
-                  <textarea
-                    className="w-full border-dashed border-2 border-gray-200 p-2"
-                    value={data.tips}
-                    onChange={(e) => setData({ ...data, tips: e.target.value })}
-                  ></textarea>
-                ) : (
-                  <p>{data.tips || ""}</p>
-                )}
-              </div>
+              {(data.tips || editing) && (
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Tips</h3>
+                  {editing ? (
+                    <textarea
+                      className="w-full border-dashed border-2 border-gray-200 p-2"
+                      value={data.tips}
+                      onChange={(e) =>
+                        setData({ ...data, tips: e.target.value })
+                      }
+                    ></textarea>
+                  ) : (
+                    <p>{data.tips || ""}</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -168,19 +182,24 @@ export default function Recipe() {
               </button>
             </div>
           ) : null}
-          <h4 className="text-xl mb-2">Optional Ingredients</h4>
-          <ul className="list-disc ml-6 mb-4">
-            {data.ingredients
-              .filter((ingredient) => !!ingredient.optional)
-              .map((ingredient) => getIngredientItem(ingredient))}
-          </ul>
-          {editing ? (
-            <div className="flex justify-end mb-4">
-              <button>
-                <PlusIcon className="size-6" />
-              </button>
+          {(data.ingredients.filter(({ optional }) => optional).length ||
+            editing) && (
+            <div>
+              <h4 className="text-xl mb-2">Optional Ingredients</h4>
+              <ul className="list-disc ml-6 mb-4">
+                {data.ingredients
+                  .filter((ingredient) => !!ingredient.optional)
+                  .map((ingredient) => getIngredientItem(ingredient))}
+              </ul>
+              {editing ? (
+                <div className="flex justify-end mb-4">
+                  <button>
+                    <PlusIcon className="size-6" />
+                  </button>
+                </div>
+              ) : null}
             </div>
-          ) : null}
+          )}
         </div>
       </div>
     </div>

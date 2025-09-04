@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class Unit(models.Model):
     SYSTEM_CHOICES = [
@@ -36,7 +37,7 @@ class Recipe(models.Model):
     title = models.CharField(max_length=100, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='static/', blank=True, null=True)
-    instructions = models.TextField(blank=True, null=True)
+    instructions = RichTextField(blank=True, null=True)
     tips = models.TextField(blank=True, null=True)
     servings = models.IntegerField(blank=True, null=True)
     prep_time = models.DurationField(blank=True, null=True)

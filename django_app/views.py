@@ -77,6 +77,24 @@ def recipe(request, recipe_name):
    
     except Exception as e:
         return Response({"error": f"Error retrieving recipe: {e}"}, status=500)
+
+@api_view(['PUT'])
+def update_recipe(request, recipe_name):
+    try:
+        recipe_obj = Recipe.objects.get(name=recipe_name)
+        data = request.data
+        recipe_obj.title = data.get("title", recipe_obj.title)
+        recipe_obj.description = data.get("description", recipe_obj.description)
+        recipe_obj.instructions = data.get("instructions", recipe_obj.instructions)
+        recipe_obj.tips = data.get("tips", recipe_obj.tips)
+        recipe_obj.save()
+        return Response({"message": "Recipe updated successfully"})
+   
+    except Recipe.DoesNotExist:
+        return Response({"error": "Recipe not found"}, status=404)
+    except Exception as e:
+        return Response({"error": f"Error updating recipe: {e}"}, status=500)
+
     
 @api_view(['GET'])
 def recipes(request):
