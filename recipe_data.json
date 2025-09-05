@@ -1,0 +1,309 @@
+[
+{
+  "model": "django_app.recipe",
+  "pk": "6cab8a31-da85-4b71-a420-789c4ef80076",
+  "fields": {
+    "name": "chocolate_candy",
+    "title": "Chocolate Candy",
+    "description": "It was brought over from Poland, and as far as we know, never had a name. We just called it Chocolate Candy, or some people would know it as \"no bake cookies\".",
+    "image": "",
+    "instructions": "In a medium saucepan, combine the milk, sugar, margarine, and cocoa.\r\nBring the mixture to a boil over medium heat, stirring constantly\r\nOnce it reaches a boil, allow it to boil for 1 minute without stirring.\r\nRemove the saucepan from the heat.\r\nStir in the oatmeal, vanilla, and optional coconut until well combined.\r\nDrop spoonfuls of the mixture onto the prepared wax paper.\r\nAllow the candies to cool and set completely.",
+    "tips": "Ensure you do not boil the mixture for more than 1 minute to avoid making the candy too hard.\r\nWork quickly when dropping the candy mixture onto the wax paper as it sets fast.",
+    "servings": null,
+    "prep_time": null,
+    "cook_time": null,
+    "total_time": null,
+    "created_at": "2024-12-19T00:54:56.917Z",
+    "updated_at": "2025-01-03T01:06:51.306Z"
+  }
+},
+{
+  "model": "django_app.recipe",
+  "pk": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+  "fields": {
+    "name": "gingersnap_treasures",
+    "title": "Gingersnap Treasures",
+    "description": "This sweet spiced cookie is perfect for the holidays.",
+    "image": "",
+    "instructions": "<p><strong>Cookies: </strong></p>\r\n\r\n<p>&nbsp;- Cream butter, sugar, molasses and egg until fluffy</p>\r\n\r\n<p>&nbsp;- Sift four, baking soda, cinnamon, cloves, ginger and salt.</p>\r\n\r\n<p>&nbsp;- Stir into the first mixture until well blended.</p>\r\n\r\n<p>&nbsp;- Shape dough into 1-inch balls and place on ungreased cookie sheet</p>\r\n\r\n<p>&nbsp;- Bake at 375&deg;F for 10 to 12 minutes</p>\r\n\r\n<p>&nbsp;- Let cookies cool completely before apply glaze (see below)</p>\r\n\r\n<p><strong>Glaze:</strong></p>\r\n\r\n<p>&nbsp; - Shift confectioners&#39; sugar</p>\r\n\r\n<p>&nbsp; - Add milk and vanilla</p>\r\n\r\n<p>&nbsp; - Mix together until well blended</p>",
+    "tips": "",
+    "servings": 50,
+    "prep_time": null,
+    "cook_time": null,
+    "total_time": null,
+    "created_at": "2025-01-03T21:06:49.015Z",
+    "updated_at": "2025-01-04T01:30:40.528Z"
+  }
+},
+{
+  "model": "django_app.recipe",
+  "pk": "ce184f52-140c-4890-a785-9432c8c36982",
+  "fields": {
+    "name": "steam_custard_eggs",
+    "title": "Steam Custard Eggs",
+    "description": "Chinese Steamed Egg Custard” or “Dan Ta”, are a traditional Chinese dessert made by steaming eggs with water and seasonings. The result is a delicate, silky, and creamy custard-like texture, often flavored with soy sauce, sesame oil, and sugar.",
+    "image": "static/steamed_eggs.jpg",
+    "instructions": "- Beat together 1:1 water and eggs\n- Pass through a sieve and pour into a small heat safe bowl\n- Steam for 10-12 mins, then remove from heat.",
+    "tips": "If you wish for smaller curds and a smoother texture add more water, up to 1:2 water and egg ratio.",
+    "servings": null,
+    "prep_time": null,
+    "cook_time": null,
+    "total_time": null,
+    "created_at": "2024-12-21T02:13:24.236Z",
+    "updated_at": "2025-01-04T01:45:23.400Z"
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 1,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "milk",
+    "amount": "0.25000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 2,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "sugar",
+    "amount": "1.00000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 3,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "margarine",
+    "amount": "0.26000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 4,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "cocoa_powder",
+    "amount": "2.00000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 5,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "oatmeal",
+    "amount": "1.12500",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 6,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "vanilla_extract",
+    "amount": "0.50000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 7,
+  "fields": {
+    "recipe": "6cab8a31-da85-4b71-a420-789c4ef80076",
+    "ingredient": "coconut",
+    "amount": "0.50000",
+    "unit": "cup",
+    "optional": true
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 8,
+  "fields": {
+    "recipe": "ce184f52-140c-4890-a785-9432c8c36982",
+    "ingredient": "flour",
+    "amount": "0.50000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 9,
+  "fields": {
+    "recipe": "ce184f52-140c-4890-a785-9432c8c36982",
+    "ingredient": "water",
+    "amount": "0.50000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 10,
+  "fields": {
+    "recipe": "ce184f52-140c-4890-a785-9432c8c36982",
+    "ingredient": "egg",
+    "amount": "2.00000",
+    "unit": null,
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 11,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "butter",
+    "amount": "0.75000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 12,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "sugar",
+    "amount": "1.00000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 13,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "molasses",
+    "amount": "0.25000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 14,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "egg",
+    "amount": "1.00000",
+    "unit": null,
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 15,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "flour",
+    "amount": "2.00000",
+    "unit": "cup",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 16,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "baking_soda",
+    "amount": "2.00000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 17,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "ground_cinnamon",
+    "amount": "1.00000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 18,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "ground_cloves",
+    "amount": "0.50000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 19,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "ground_ginger",
+    "amount": "1.00000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 20,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "salt",
+    "amount": "0.25000",
+    "unit": "teaspoon",
+    "optional": false
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 21,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "confectioners_sugar",
+    "amount": "1.00000",
+    "unit": "cup",
+    "optional": true
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 22,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "milk",
+    "amount": "1.50000",
+    "unit": "tablespoon",
+    "optional": true
+  }
+},
+{
+  "model": "django_app.recipeingredient",
+  "pk": 23,
+  "fields": {
+    "recipe": "86faa18c-93f6-4a14-9c08-4c316eae3643",
+    "ingredient": "vanilla_extract",
+    "amount": "0.25000",
+    "unit": "teaspoon",
+    "optional": true
+  }
+}
+]

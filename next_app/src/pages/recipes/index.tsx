@@ -16,10 +16,10 @@ export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3030/api/recipes/`)
+    fetch(`http://localhost:8090/api/rest/recipes/`)
       .then((response) => response.json())
       .then((data) => {
-        setRecipes(data.recipes);
+        setRecipes(data.django_app_recipe);
       });
   }, []);
 

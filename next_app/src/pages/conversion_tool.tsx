@@ -21,7 +21,7 @@ export default function ConversionTool() {
   const [toUnit, setToUnit] = useState<string>("");
 
   useEffect(() => {
-    fetch("http://localhost:3030/api/conversions/")
+    fetch("http://localhost:8090/api/rest/conversions/")
       .then((response) => response.json())
       .then((data) => {
         const ingredientsList = Object.keys(data);

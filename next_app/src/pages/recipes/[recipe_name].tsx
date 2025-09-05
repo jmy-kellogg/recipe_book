@@ -49,7 +49,7 @@ export default function Recipe() {
   };
 
   const updateRecipe = () => {
-    fetch(`http://localhost:3030/api/recipes/${recipe_name}/update/`, {
+    fetch(`http://localhost:8090/api/recipes/${recipe_name}/update/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function Recipe() {
 
   useEffect(() => {
     if (recipe_name) {
-      fetch(`http://localhost:3030/api/recipes/${recipe_name}/`)
+      fetch(`http://localhost:8090/api/recipes/${recipe_name}/`)
         .then((response) => response.json())
         .then((recipe) => {
           setData({

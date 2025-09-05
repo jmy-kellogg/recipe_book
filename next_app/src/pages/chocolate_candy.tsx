@@ -28,7 +28,7 @@ export default function Recipe({ title = "Chocolate Candy" }) {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3030/api/recipes${path}/`)
+    fetch(`http://localhost:8090/api/rest/recipes${path}/`)
       .then((response) => response.json())
       .then((recipe) => {
         setData({
