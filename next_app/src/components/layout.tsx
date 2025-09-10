@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import type React from "react";
 
-export default function Layout({ children }) {
+interface ComponentProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: ComponentProps) {
   return (
     <>
       <nav className="p-4 bg-gray-800 text-white">

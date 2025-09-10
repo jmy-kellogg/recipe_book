@@ -14,28 +14,28 @@ export default function Home() {
         </div>
         <Link
           className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-          href="http://localhost:3000/recipes"
+          href="http://localhost:9000/recipes"
           rel="noopener noreferrer"
         >
           Recipe List
         </Link>
         <Link
           className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-          href="http://localhost:3000/chocolate_candy"
+          href="http://localhost:9000/chocolate_candy"
           rel="noopener noreferrer"
         >
           Recipe Example
         </Link>
         <Link
           className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-          href="http://localhost:3000/conversion_tool"
+          href="http://localhost:9000/conversion_tool"
           rel="noopener noreferrer"
         >
           Conversions Tool
         </Link>
         <Link
           className="rounded-full border border-solid border-black transition-colors flex items-center justify-center hover:bg-[#f2f2f2]  hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-          href="http://localhost:3000/substitution_tool"
+          href="http://localhost:9000/substitution_tool"
           rel="noopener noreferrer"
         >
           Substitution Toool

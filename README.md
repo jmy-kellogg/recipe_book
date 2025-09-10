@@ -27,7 +27,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
+Open [http://localhost:9000](http://localhost:9000) with your browser to see the app.
 
 ## Backend
 
@@ -66,7 +66,7 @@ Run the backend python server:
 python manage.py runserver
 ```
 
-To access the Django admin open [http://localhost:3030/admin/](http://localhost:3030/admin/)
+To access the Django admin open [http://localhost:9090/admin/](http://localhost:9090/admin/)
 
 ## Django Development
 
