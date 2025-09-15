@@ -2,39 +2,59 @@ This is the Recipe Book app. Find all your favorite recipes.
 
 # Getting Started
 
-## Frontend
+## Prerequisites
 
-Move into `/frontend` folder
+Make sure you have Docker and Docker Compose installed on your system.
+
+## Backend (Hasura + PostgreSQL)
+
+Start the backend services:
 
 ```bash
-cd frontend
+docker-compose up
+```
+
+This will start:
+- PostgreSQL database on port 5433
+- Hasura GraphQL engine on port 9090
+
+Access Hasura Console at [http://localhost:9090/console](http://localhost:9090/console)
+
+## Frontend
+
+Move into `/next_app` folder
+
+```bash
+cd next_app
 ```
 
 Install packages
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
-Start dev
+Start dev server
 
 ```bash
-# then
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:9000](http://localhost:9000) with your browser to see the app.
 
-## Backend
+## Django Development (Legacy)
 
-Migrate database:
+If you need to work with the Django backend directly:
+
+Create new models
 
 ```bash
 python manage.py makemigrations
+```
+
+Migrate changes database
+
+```bash
 python manage.py migrate
 ```
 
@@ -48,38 +68,6 @@ Add initial data:
 
 ```bash
 python populate_data.py init
-```
-
-Install NPM packages in frontend folder:
-
-```bash
-npm install
-# or
-yarn install
-```
-
-## Run for development
-
-Run the backend python server:
-
-```bash
-python manage.py runserver
-```
-
-To access the Django admin open [http://localhost:9090/admin/](http://localhost:9090/admin/)
-
-## Django Development
-
-Create new models
-
-```bash
- python manage.py makemigrations
-```
-
-Migrate changes database
-
-```bash
-python manage.py migrate
 ```
 
 To access the django shell
