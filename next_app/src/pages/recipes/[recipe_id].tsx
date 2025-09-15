@@ -12,7 +12,7 @@ import { RichTextarea, createRegexRenderer } from "rich-textarea";
 
 export default function Recipe() {
   const router = useRouter();
-  const { recipe_name } = router.query;
+  const { recipe_id } = router.query;
   const [editing, setEditing] = useState(false);
   const [data, setData] = useState<{
     title: string;
@@ -49,7 +49,7 @@ export default function Recipe() {
   };
 
   const updateRecipe = () => {
-    fetch(`http://localhost:9090/api/recipes/${recipe_name}/update/`, {
+    fetch(`http://localhost:9090/api/rest/recipes/${recipe_id}/update/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -59,21 +59,21 @@ export default function Recipe() {
   };
 
   useEffect(() => {
-    if (recipe_name) {
-      fetch(`http://localhost:9090/api/recipes/${recipe_name}/`)
+    if (recipe_id) {
+      fetch(`http://localhost:9090/api/rest/recipes/${recipe_id}/`)
         .then((response) => response.json())
-        .then((recipe) => {
+        .then(({ recipes_by_pk }) => {
           setData({
-            title: recipe.title || "",
-            description: recipe.description || "",
-            instructions: recipe.instructions || "",
-            tips: recipe.tips || "",
-            ingredients: recipe.ingredients || [],
-            image: recipe.image || "",
+            title: recipes_by_pk.title || "",
+            description: recipes_by_pk.description || "",
+            instructions: recipes_by_pk.instructions || "",
+            tips: recipes_by_pk.tips || "",
+            ingredients: recipes_by_pk.ingredients || [],
+            image: recipes_by_pk.image || "",
           });
         });
     }
-  }, [recipe_name]);
+  }, [recipe_id]);
 
   return (
     <div className="flex bg-gray-100">

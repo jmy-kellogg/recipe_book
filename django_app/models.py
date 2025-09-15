@@ -28,6 +28,9 @@ class Conversion(models.Model):
     to_unit = models.ForeignKey(Unit, on_delete=models.CASCADE, related_name='to_unit')
     factor = models.DecimalField(max_digits=10, decimal_places=5)
 
+    class Meta:
+        db_table = 'conversion'
+
     def __str__(self):
       return f"conversion factor: {self.factor}"
     

@@ -19,7 +19,7 @@ export default function Recipes() {
     fetch(`http://localhost:9090/api/rest/recipes/`)
       .then((response) => response.json())
       .then((data) => {
-        setRecipes(data.django_app_recipe);
+        setRecipes(data.recipes);
       });
   }, []);
 
@@ -29,7 +29,7 @@ export default function Recipes() {
         {recipes.map((recipe: Recipe) => (
           <Link
             key={recipe.id}
-            href={`http://localhost:9000/recipes/${recipe.name}`}
+            href={`http://localhost:9000/recipes/${recipe.id}`}
           >
             <div className="bg-white rounded-lg shadow-lg m-4 p-8 h-auto">
               <div className="flex">
