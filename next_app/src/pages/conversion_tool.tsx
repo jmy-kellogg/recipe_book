@@ -3,6 +3,13 @@
 import { useEffect, useState } from "react";
 import { getAmountDisplay, getDisplayText } from "../utils/displayText";
 
+interface Conversion {
+  ingredient_id: string;
+  from_unit_id: string;
+  to_unit_id: string;
+  factor: number;
+}
+
 interface ConversionChart {
   [key: string]: {
     [unit: string]: {
@@ -23,16 +30,33 @@ export default function ConversionTool() {
   useEffect(() => {
     fetch("http://localhost:9090/api/rest/conversions/")
       .then((response) => response.json())
-      .then((data) => {
-        const ingredientsList = Object.keys(data);
-        const ingredient = ingredientsList[0];
-        const fromUnit = Object.keys(data[ingredient])[0];
-        const toUnit = Object.keys(data[ingredient][fromUnit])[0];
-
-        setIngredients(ingredientsList);
-        setConversions(data);
-        setFromUnit(fromUnit);
-        setToUnit(toUnit);
+      .then(({ conversions }: { conversions: Conversion[] }) => {
+        const ingredientsList = new Set(
+          conversions.map(({ ingredient_id }: Conversion) => ingredient_id)
+        );
+        
+        // Convert conversions array to ConversionChart format
+        const conversionChart: ConversionChart = {};
+        conversions.forEach(({ ingredient_id, from_unit_id, to_unit_id, factor }) => {
+          if (!conversionChart[ingredient_id]) {
+            conversionChart[ingredient_id] = {};
+          }
+          if (!conversionChart[ingredient_id][from_unit_id]) {
+            conversionChart[ingredient_id][from_unit_id] = {};
+          }
+          conversionChart[ingredient_id][from_unit_id][to_unit_id] = factor;
+        });
+        
+        const ingredientsArray = Array.from(ingredientsList);
+        const firstIngredient = ingredientsArray[0];
+        const fromUnit = firstIngredient ? Object.keys(conversionChart[firstIngredient] || {})[0] : "";
+        const toUnit = firstIngredient && fromUnit ? Object.keys(conversionChart[firstIngredient][fromUnit] || {})[0] : "";
+        
+        setIngredients(ingredientsArray);
+        setConversions(conversionChart);
+        setIngredient(firstIngredient || "");
+        setFromUnit(fromUnit || "");
+        setToUnit(toUnit || "");
         setFromAmount("1");
       });
   }, []);

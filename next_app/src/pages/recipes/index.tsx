@@ -18,8 +18,8 @@ export default function Recipes() {
   useEffect(() => {
     fetch(`http://localhost:9090/api/rest/recipes/`)
       .then((response) => response.json())
-      .then((data) => {
-        setRecipes(data.recipes);
+      .then(({ recipes }) => {
+        setRecipes(recipes);
       });
   }, []);
 
