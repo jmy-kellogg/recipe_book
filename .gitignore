@@ -51,7 +51,6 @@ wheels/
 
 # Django static files
 staticfiles/
-static/
 
 # Media files
 media/
