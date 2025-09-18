@@ -16,16 +16,16 @@ This directory contains seed files for the Recipe Book PostgreSQL database.
 ### Run All Seeds
 ```bash
 # From the project root directory
-docker exec -i recipe_book_postgres_1 psql -U postgres -d recipe_book < seeds/seed_all.sql
+docker exec -i recipe_book_postgres_1 psql -U postgres -d recipe_book < hasura/seeds/seed_all.sql
 ```
 
 ### Run Individual Seeds
 ```bash
 # Units only
-docker exec -i recipe_book_postgres_1 psql -U postgres -d recipe_book < seeds/units.sql
+docker exec -i recipe_book_postgres_1 psql -U postgres -d recipe_book < hasura/seeds/units.sql
 
 # Ingredients only
-docker exec -i recipe_book_postgres_1 psql -U postgres -d recipe_book < seeds/ingredients.sql
+docker exec -i recipe_book_postgres_1 psql -U postgres -d recipe_book < hasura/seeds/ingredients.sql
 ```
 
 ### Verify Data
